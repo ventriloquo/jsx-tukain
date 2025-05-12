@@ -25,64 +25,392 @@ function App({ children }) {
   return (
     <html data-theme="dark">
       <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
         <link rel="icon" type="image/png" href="https://f4.bcbits.com/img/0038995394_41.jpg" />
         <style>
           {`
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
             :root {
-              --pico-background-color: #1f1f28;
-              --pico-primary: #957fb8;
-              --pico-secondary: #9cabca;
-              --pico-color: #dcd7ba;
-              --pico-muted-color: #717c7c;
-              --pico-muted-border-color: var(--pico-muted-color);
-              --pico-code-color: var(--pico-muted-color);
-              --pico-code-background-color: #2a2a37;
-              --pico-card-background-color: #363646;
-              --pico-card-sectioning-background-color: #2a2a37;
-              --pico-primary-hover: #98bb6c;
-              --pico-table-border-color: var(--pico-muted-color);
-              --pico-h1-color: var(--pico-color);
-              --pico-h2-color: var(--pico-color);
-              --pico-h3-color: var(--pico-color);
+              --background:           #1F1F28;
+              --background-alt:       #363646;
+              --foreground:           #DCD7BA;
+              --grey:                 #727169;
+              --red:                  #E46876;
+              --green:                #98BB6C;
+              --yellow:               #E6C384;
+              --blue:                 #223249;
+              --purple:               #9CABCA;
+              --cyan:                 #7AA89F;
+              --bright-background:    #2A2A37;
+              --bright-foreground:    #D27E99;
+              --bright-grey:          #717C7C;
+              --bright-red:           #E82424;
+              --bright-green:         #6A9589;
+              --bright-yellow:        #FF9E3B;
+              --bright-blue:          #2D4F67;
+              --bright-purple:        #957FB8;
+              --bright-cyan:          #A3D4D5;
             }
+
+            :root {
+              --bg-0: var(--background);
+              --bg-1: var(--background-alt);
+              --bg-2: var(--bright-background);
+              --fg-1: var(--foreground);
+              --fg-2: var(--bright-foreground);
+              --accent-1: var(--purple);
+              --accent-2: var(--bright-purple);
+
+              --border: solid 1px var(--bg-1);
+            }
+
+            * {
+              padding: 0;
+              margin: 0;
+            }
+
             ::-webkit-scrollbar {
               display: none;
             }
-            main {
-              max-width: 80ch !important;
+
+            html {
+              font-family: "Noto Sans", sans-serif;
+              background-color: var(--bg-0);
             }
+
+            body {
+              color: var(--fg-1);
+            }
+
+            mark {
+              background-color: var(--yellow) !important;
+            }
+
             a {
-              text-decoration: underline;
-              color: var(--pico-secondary);
+              color: var(--accent-1);
+              text-decoration: none;
             }
+
+            a:hover {
+              opacity: 80%;
+            }
+
+            .center {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+            }
+
+            b, strong {
+              font-weight: bold !important;
+              color: var(--fg-1) !important;
+            }
+
+            ul {
+              list-style: "· "
+            }
+
+            .content {
+              display: block;
+              margin: 0 auto;
+              padding: 1em;
+              position: relative;
+              max-width: 80ch;
+              min-height: 100vh;
+            }
+
+            header {
+              position: sticky;
+              top: 0;
+              z-index: 10;
+              background-color: var(--bg-0);
+              color: var(--fg-1);
+              justify-content: space-between;
+              max-width: 82.5ch;
+              margin: auto;
+            }
+
+            nav {
+              background-color: var(--bg-0);
+              border-bottom: solid 1px var(--bg-1);
+              height: 60px;
+              display: flex;
+              align-items: center;
+              margin-bottom: 2em;
+            }
+
+            .links-container {
+              height: 100%;
+              width: 100%;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+            }
+
             nav a {
-              color: var(--pico-primary);
+              height: 100%;
+              padding: 0 20px;
+              display: flex;
+              align-items: center;
+              text-decoration: none;
+              color: var(--accent-2);
             }
-            img {
-              max-width: 400px;
+
+            nav a:hover {
+              background-color: var(--accent-2);
+              color: var(--bg-0);
+            }
+
+            nav .home-link {
+              margin-right: auto;
+            }
+
+            #sidebar-active {
+              display: none;
+            }
+
+            nav img, nav hgroup, .open-sidebar-button, .close-sidebar-button {
+              display: none;
+            }
+
+            .post {
+              display: block;
+              margin: auto;
+              margin: 1em 0;
+            }
+
+            button, .alternative_button {
+              border-radius: 3px;
+              box-shadow: 0px 1px 2px 0px black;
+              font-size: small;
+              margin: 5px;
+              padding: 6px 20px;
+              background-color: var(--bg-1);
+              color: var(--fg-1);
+              transition: all 0.2s;
+            }
+
+            button:hover {
+              opacity: 100%;
+              background-color: var(--accent-2);
+              color: var(--bg-0);
+            }
+
+            button:active, .alternative_button {
+              box-shadow: inset 0px 1px 2px 0px black;
+              background-color: var(--bg-2);
+              color: var(--fg-1);
+            }
+
+            button:active, .alternative_button:hover {
+              opacity: 100%;
+            }
+
+            hr {
+              border: none;
+              border-bottom: var(--border);
+              margin: 1em 0;
+            }
+
+            time {
+              color: var(--purple);
+              font-size: small;
+            }
+
+            hgroup {
+              margin-bottom: 1em;
+              overflow: hidden;
+            }
+
+            hgroup p {
+              color: var(--bright-grey);
+              margin-top: -1em;
+            }
+
+            h1, h2, h3 {
+              font-weight: normal;
+            }
+
+            h1 {
+              color: var(--green);
+            }
+
+            h3 {
+              color: var(--bright-green) !important;
+              font-size: larger;
+            }
+
+            strong, b {
+              font-weight: normal;
+              color: var(--red);
+            }
+
+            p {
+              padding-top: .7em;
+              padding-bottom: .7em;
+            }
+
+            pre {
+              padding: 1em;
+            }
+
+            blockquote {
+                background-color: var(--bg-1);
+                color: var(--fg-1);
+                border-left: solid 5px var(--accent-1);
+                padding: 10px 20px;
+                margin: 10px auto;
+                margin-bottom: 1em;
+            }
+
+            img, iframe {
+              max-width: 90%;
+              max-height: 400px;
               margin: 2px;
             }
+
+            table, th, td {
+                padding: 5px;
+                border-collapse: collapse;
+            }
+
+            table {
+                border: none;
+                overflow: scroll;
+                margin: 1em;
+                margin-left: auto;
+                margin-right: auto;
+                border: var(--border);
+            }
+
+            th, td {
+                padding-left: 1em;
+                padding-right: 1em;
+                margin: 0;
+            }
+
+            th {
+                font-weight: bold;
+                background-color: var(--bg-1);
+            }
+
+            tr {
+                background-color: var(--bg-0);
+            }
+
+            tr:nth-of-type(even) {
+                background-color: var(--fg-2);
+                color: var(--bg-0);
+            }
+
+            thead > tr > th {
+                background-color: var(--bg-1);
+                color: var(--fg-1);
+                font-weight: normal;
+                border-bottom: var(--border);
+            }
+
+            colgroup {
+                border: solid 2px var(--fg-2);
+            }
+
+            @media only screen and (max-width: 768px) {
+              #search {
+                width: 40ch;
+              }
+
+              nav {
+                backdrop-filter: none;
+                background-color: var(--bg-0);
+                z-index: 100;
+              }
+
+              nav img {
+                display: block;
+                margin: 0.8em;
+                border: var(--border);
+                border-radius: var(--border-radius);
+                max-width: 30%;
+              }
+
+              .links-container {
+                flex-direction: column;
+                align-items: flex-start;
+
+                position: fixed;
+                top: 0;
+                left: -102%;
+                z-index: 100;
+                width: 100%;
+
+                background-color: var(--bg-2);
+                transition: 0.30s ease-out;
+              }
+
+              nav a {
+                box-sizing: border-box;
+                height: auto;
+                width: 100%;
+                padding: 20px 30px;
+                justify-content: flex-start;
+              }
+
+              .open-sidebar-button, .close-sidebar-button {
+                padding: 20px;
+                display: block;
+              }
+
+              #sidebar-active:checked ~ .links-container {
+                left: 0;
+              }
+
+            }
+
+            @media only screen and (max-width: 800px) {
+
+              h1 {
+                font-size: larger;
+              }
+              h2, h3 {
+                font-size: large;
+              }
+            }
+
             img:hover {
-              border: solid 2px var(--pico-primary);
+              border: solid 2px var(--accent-1);
               transition: all 50ms;
             }
             article ul {
               margin: .5em 1em;
             }
+            h1 {
+              color: var(--green) !important;
+              font-size: x-large;
+            }
+            article code, kbd {
+              padding: 3px ;
+              border-radius: 3px ;
+            }
+            pre:has(code), code {
+              background-color: var(--bg-1) !important;
+              margin: 10px 0;
+              border-radius: 3px;
+            }
+            kbd {
+              background-color: var(--foreground);
+              color: var(--background);
+            }
+            tr:nth-of-type(2n) {
+              background-color: var(--bg-1);
+            }
+            article {
+              background-color: var(--bg-2);
+              padding: 1em;
+              border-radius: 3px;
+            }
             article img {
               display: block;
               margin: auto;
               max-width: 300px;
-            }
-            article header {
-              color: var(--pico-primary-hover);
-            }
-            blockquote {
-              background-color: var(--pico-code-background-color);
-            }
-            pre {
-              margin: 1em auto;
             }
             .gallery {
               display: flex;
@@ -91,6 +419,7 @@ function App({ children }) {
             }
             .gallery img {
               object-fit: cover;
+              max-width: 300px;
             }
             .gallery.albun img {
               max-width: 200px;
@@ -101,9 +430,11 @@ function App({ children }) {
         <title>Tukain</title>
       </head>
       <body>
-        <main class="container">
+        <main>
           <NavBar />
+          <div class="content">
             {children}
+          </div>
         </main>
       </body>
     </html>
@@ -246,19 +577,21 @@ function Blog() {
   }
   return (
     <div>
-    <hgroup>
-      <h1>Bem-vindo ao meu blog!</h1>
-      <p>
-        Aqui eu falo sobre coisas do meu cotidiano
-        ou sobre assuntos que me interessam.
-      </p>
-    </hgroup>
+      <hgroup class="intro">
+        <h1>Bem-vindo ao meu blog!</h1>
+        <p>
+          Aqui eu falo sobre coisas do meu cotidiano
+          ou sobre assuntos que me interessam.
+        </p>
+      </hgroup>
     {posts.map((post) => (
+      <div class="post">
       <article>
-          <header>{post.date}</header>
+          <time>{post.date}</time>
           <h1>{post.title}</h1>
           <p dangerouslySetInnerHTML={{__html: format(post.content)}}></p>
       </article>
+      </div>
     ))}
     </div>
   )
@@ -267,14 +600,16 @@ function Blog() {
 function Gallery() {
   return (
     <div>
-      <hgroup>
-        <h1>Capas de Albuns</h1>
-        <p>
-          Estas são algumas das capas de álbuns da
-          <a href="https://bandcamp.com/ventriloquo"> minha coleção de músicas </a>
-          que eu acho mais bonitas
-        </p>
-      </hgroup>
+      <div>
+        <hgroup class="intro">
+          <h1>Capas de Albuns</h1>
+          <p>
+            Estas são algumas das capas de álbuns da
+            <a href="https://bandcamp.com/ventriloquo"> minha coleção de músicas </a>
+            que eu acho mais bonitas
+          </p>
+        </hgroup>
+      </div>
       <div class="gallery albun">
         <a href="https://amigadeluxe.bandcamp.com/album/luminance-chrominance">
           <img src="https://f4.bcbits.com/img/a0100050758_16.jpg" />
@@ -314,10 +649,12 @@ function Gallery() {
         </a>
       </div>
       <br />
-      <hgroup>
-        <h1>Wallpapers</h1>
-        <p>Alguns wallpapers que eu achei por ai</p>
-      </hgroup>
+      <div>
+        <hgroup class="intro">
+          <h1>Wallpapers</h1>
+          <p>Alguns wallpapers que eu achei por ai</p>
+        </hgroup>
+      </div>
       <div class="gallery">
         <img src="https://images.unsplash.com/photo-1479030160180-b1860951d696?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGRlc2t0b3AlMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA%3D" />
         <img src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGRlc2t0b3AlMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA%3D" />
@@ -333,13 +670,13 @@ function NavBar() {
   return (
     <header>
       <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-        </ul>
-        <ul>
-          <li><a style="color: var(--pico-secondary)" href="/blog">Blog</a></li>
-          <li><a style="color: var(--pico-secondary)" href="/gallery">Galeria</a></li>
-        </ul>
+        <input id="sidebar-active" type="checkbox" />
+        <label class="open-sidebar-button" for="sidebar-active">Menu</label>
+        <div class="links-container">
+          <a class="home-link" href="/">Home</a>
+          <a href="/blog">Blog</a>
+          <a href="/gallery">Galeria</a>
+        </div>
       </nav>
     </header>
   );
@@ -358,17 +695,6 @@ function Home() {
         <br />
         Sinta-se livre para explorar o meu espaço neste vasto mundo chamado internet!
       </p>
-      <table>
-        <thead>
-          <tr>
-            <th>Onde você pode me encontrar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><a href="https://github.com/ventriloquo">Github</a></td></tr>
-          <tr><td><a href="https://neocities.org/site/tukainpng">Neocities</a></td></tr>
-        </tbody>
-      </table>
     </div>
   );
 }
