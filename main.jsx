@@ -462,6 +462,7 @@ const posts = [
     que ele melhor se encaixasse no meu padrão de design, e percebi uma coisa...
 
     # Esse site não tem Javascript no lado do cliente!
+    
     Cara, isso me pegou muito de surpresa, sério. Tipo, esse site é
     literalemente 1 arquivo |JSX|, e é hosteado por um
     Runtime Javascript, a última coisa que eu esperava seria que o resultado
@@ -469,7 +470,7 @@ const posts = [
 
     Sei lá, foi algo tipo... parece um pato, nada como pato, mas na verdade é
     um *ganso*. Tecnicamente, isso aqui não é lá muito diferente de um SSG,
-    como o próprio <a href="https://lume.land">Lume</a>, mas, logicamente, ele
+    como o próprio [Lume](https://lume.land), mas, logicamente, ele
     tem bem menos funcionalidades... por padrão, por que a única limitação aqui
     é quem usa, e no meu caso ele vai permanecer bem limitado mesmo, o limite do
     meu raciocínio já foi atingido só de usar uma arquitetura serverless, quanto
@@ -484,8 +485,8 @@ const posts = [
     date: "08/05/2025",
     content:
     ` Essa semana eu comecei a experimentar o
-    <a href="https://deno.land">Deno</a>,
-    e também o <a href="https://deno.com/deploy">Deno Deploy</a> e rapaz...
+    [Deno](https://deno.com), e também o 
+    [Deno Deploy](https://deno.com/deploy) e rapaz...
     que. coisa. *incrível!*
 
     Bom, para começar, eu tenho que deixar claro que eu não sou um programador,
