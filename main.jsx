@@ -340,7 +340,20 @@ function App({ children }) {
               #sidebar-active:checked ~ .links-container {
                 left: 0;
               }
-
+              
+              hr {
+                display: none;
+              }
+              
+              article {
+                background-color: none;
+                border-top: solid 1px var(--bg-2);
+                padding: 1em 0;
+              }
+              
+              pre:has(code), code {
+                background-color: var(--bg-2) !important;
+              }
             }
 
             @media only screen and (max-width: 800px) {
