@@ -83,11 +83,6 @@ function App({ children }) {
               justify-content: center;
             }
 
-            b, strong {
-              font-weight: bold !important;
-              color: var(--fg-1) !important;
-            }
-
             ul {
               list-style: "· "
             }
@@ -465,7 +460,7 @@ const posts = [
     title: "Deno Deploy",
     date: "08/05/2025",
     content:
-    ` Essa semana eu comecei a experimentar o
+    `Essa semana eu comecei a experimentar o
     [Deno](https://deno.com), e também o 
     [Deno Deploy](https://deno.com/deploy) e rapaz...
     que. coisa. *incrível!*
