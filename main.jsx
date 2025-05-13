@@ -393,7 +393,7 @@ function App({ children }) {
               }
               
               article {
-                background-color: none;
+                background-color: initial;
                 border-top: solid 1px var(--bg-2);
                 padding: 1em 0;
               }
