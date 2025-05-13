@@ -26,39 +26,22 @@ function App({ children }) {
     <html data-theme="dark">
       <head>
         <link rel="icon" type="image/png" href="https://f4.bcbits.com/img/0038995394_41.jpg" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs-themes@1.0.0/tomorrow-night-eighties.css"/>
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
         <style>
           {`
             @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-            :root {
-              --background:           #1F1F28;
-              --background-alt:       #363646;
-              --foreground:           #DCD7BA;
-              --grey:                 #727169;
-              --red:                  #E46876;
-              --green:                #98BB6C;
-              --yellow:               #E6C384;
-              --blue:                 #223249;
-              --purple:               #9CABCA;
-              --cyan:                 #7AA89F;
-              --bright-background:    #2A2A37;
-              --bright-foreground:    #D27E99;
-              --bright-grey:          #717C7C;
-              --bright-red:           #E82424;
-              --bright-green:         #6A9589;
-              --bright-yellow:        #FF9E3B;
-              --bright-blue:          #2D4F67;
-              --bright-purple:        #957FB8;
-              --bright-cyan:          #A3D4D5;
-            }
 
             :root {
-              --bg-0: var(--background);
-              --bg-1: var(--background-alt);
-              --bg-2: var(--bright-background);
-              --fg-1: var(--foreground);
-              --fg-2: var(--bright-foreground);
-              --accent-1: var(--purple);
-              --accent-2: var(--bright-purple);
+              --bg-0:     #1F1F28;
+              --bg-1:     #363646;
+              --bg-2:     #2A2A37;
+              --fg-1:     #DCD7BA;
+              --fg-2:     #717C7C;
+              --accent-1: #9CABCA;
+              --accent-2: #957FB8;
+              --accent-3: #98bb6c;
+              --accent-4: #6A9589;
 
               --border: solid 1px var(--bg-1);
             }
@@ -82,7 +65,7 @@ function App({ children }) {
             }
 
             mark {
-              background-color: var(--yellow) !important;
+              background-color: #e6c384;
             }
 
             a {
@@ -212,7 +195,7 @@ function App({ children }) {
             }
 
             time {
-              color: var(--purple);
+              color: var(--accent-1);
               font-size: small;
             }
 
@@ -222,7 +205,7 @@ function App({ children }) {
             }
 
             hgroup p {
-              color: var(--bright-grey);
+              color: var(--fg-2);
               margin-top: -1em;
             }
 
@@ -231,11 +214,12 @@ function App({ children }) {
             }
 
             h1 {
-              color: var(--green);
+              color: var(--accent-3);
+              font-size: x-large;
             }
 
             h3 {
-              color: var(--bright-green) !important;
+              color: var(--accent-4);
               font-size: larger;
             }
 
@@ -382,10 +366,6 @@ function App({ children }) {
             article ul {
               margin: .5em 1em;
             }
-            h1 {
-              color: var(--green) !important;
-              font-size: x-large;
-            }
             article code, kbd {
               padding: 3px ;
               border-radius: 3px ;
@@ -436,6 +416,7 @@ function App({ children }) {
             {children}
           </div>
         </main>
+        <script>hljs.highlightAll();</script>
       </body>
     </html>
   );
@@ -530,16 +511,15 @@ const posts = [
 
     |code|
 
-    <pre><code>
-use fmt;
+    <pre><code>use fmt;
 export fn main() void = {
   fmt::println("Olá, mundo!")!;
-};
-    </code></pre>
+};</code></pre>
+
     # teste
     Aqui vai um link para o [google](https://google.com).
     ![](https://www.pngrepo.com/png/378789/512/deno.png)
-
+    <center>Simplesmente *BASED*</center>
     `
   },
 ];
@@ -692,7 +672,9 @@ function Home() {
       </hgroup>
       <p>
         Sou alguém que busca por músicas que me relaxam ou que dão adrenalina…
+        <br />
         Só depende do dia.
+        <br />
         <br />
         Sinta-se livre para explorar o meu espaço neste vasto mundo chamado internet!
       </p>
