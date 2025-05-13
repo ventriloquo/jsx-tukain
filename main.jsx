@@ -361,7 +361,7 @@ function App({ children }) {
               margin: .5em 1em;
             }
             article code, kbd {
-              padding: 3px ;
+              padding: 3px 6px;
               border-radius: 3px ;
             }
             pre:has(code), code {
@@ -410,7 +410,6 @@ function App({ children }) {
           <div class="content">
             {children}
           </div>
-          <Footer />
         </main>
         <script>hljs.highlightAll();</script>
       </body>
@@ -478,9 +477,14 @@ const posts = [
     Inclusive, fica aqui a minha recomendação, teste a Hare.
 
     # Além disso...
-    Eu também "implementei" uma footer que diz quando foi feita a última modificação do site.
-    Não é lá *tão* útil assim, mas já dá uma ajuda pra quem tem dúvidas se o site tá morto
-    ou não. Mesmo que eu duvide que alguém conheça esse site.`
+    Eu venho aprimorando cada vez mais a minha configuração do [Neovim](https://neovim.io/),
+    eu diria que eu está ficando próximo do que seria considerado uma
+    [IDE](https://pt.wikipedia.org/wiki/Ambiente_de_desenvolvimento_integrado) leve. E também eu coloquei
+    uma caralhada de temas nele, você só tem que apertar 'espaço' 't' e uma janelinha com a seleção de temas
+    aparece. Na realidade, todas os atalhos extras que adicionei são acessados (e podem ser visualizados)
+    apertando 'espaço'.
+
+    Acho que é isso o que eu tenho para falar por agora, até mais!`
   },
   {
     title: "Sintaxe no estilo Markdown!",
@@ -737,25 +741,6 @@ function NavBar() {
       </nav>
     </header>
   );
-}
-
-function Footer() {
-  const hoje = new Date()
-  const dia = String(hoje.getDate()).padStart(2, '0')
-  const mês = String(hoje.getMonth() + 1).padStart(2, '0')
-  const ano = hoje.getFullYear()
-  const hora = hoje.getHours()
-  const minuto = hoje.getMinutes()
-  const segundo = hoje.getSeconds()
-  const last_update = dia + '/' + mês + '/' + ano + ' - ' + hora + ":" + minuto + ":" + segundo
-
-  return (
-    <footer>
-      <center>
-        <p>Última atualização: {last_update}</p>
-      </center>
-    </footer>
-  )
 }
 
 function Home() {
