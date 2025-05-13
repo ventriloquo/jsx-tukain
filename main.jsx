@@ -291,7 +291,54 @@ function App({ children }) {
                 border: solid 2px var(--fg-2);
             }
 
-            @media only screen and (max-width: 768px) {
+            img:hover {
+              border: solid 2px var(--accent-1);
+              transition: all 50ms;
+            }
+            article ul {
+              margin: .5em 1em;
+            }
+            article code, kbd {
+              padding: 3px 6px;
+              border-radius: 3px ;
+            }
+            pre:has(code), code {
+              background-color: var(--bg-1) !important;
+              margin: 10px 0;
+              border-radius: 3px;
+              overflow-x: scroll;
+            }
+            kbd {
+              background-color: var(--fg-1);
+              color: var(--bg-0);
+            }
+            tr:nth-of-type(2n) {
+              background-color: var(--bg-1);
+            }
+            article {
+              background-color: var(--bg-2);
+              padding: 1em;
+              border-radius: 3px;
+            }
+            article img {
+              display: block;
+              margin: auto;
+              max-width: 300px;
+            }
+            .gallery {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+            }
+            .gallery img {
+              object-fit: cover;
+              max-width: 300px;
+            }
+            .gallery.albun img {
+              max-width: 200px;
+              margin: 2px;
+            }
+                        @media only screen and (max-width: 768px) {
               #search {
                 width: 40ch;
               }
@@ -364,54 +411,6 @@ function App({ children }) {
               h2, h3 {
                 font-size: large;
               }
-            }
-
-            img:hover {
-              border: solid 2px var(--accent-1);
-              transition: all 50ms;
-            }
-            article ul {
-              margin: .5em 1em;
-            }
-            article code, kbd {
-              padding: 3px 6px;
-              border-radius: 3px ;
-            }
-            pre:has(code), code {
-              background-color: var(--bg-1) !important;
-              margin: 10px 0;
-              border-radius: 3px;
-              overflow-x: scroll;
-            }
-            kbd {
-              background-color: var(--fg-1);
-              color: var(--bg-0);
-            }
-            tr:nth-of-type(2n) {
-              background-color: var(--bg-1);
-            }
-            article {
-              background-color: var(--bg-2);
-              padding: 1em;
-              border-radius: 3px;
-            }
-            article img {
-              display: block;
-              margin: auto;
-              max-width: 300px;
-            }
-            .gallery {
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: center;
-            }
-            .gallery img {
-              object-fit: cover;
-              max-width: 300px;
-            }
-            .gallery.albun img {
-              max-width: 200px;
-              margin: 2px;
             }
           `}
         </style>
