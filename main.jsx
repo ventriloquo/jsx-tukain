@@ -23,7 +23,7 @@ console.log("Listening on http://localhost:8000");
 
 function App({ children }) {
   return (
-    <html data-theme="dark">
+    <html>
       <head>
         <link rel="icon" type="image/png" href="https://f4.bcbits.com/img/0038995394_41.jpg" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs-themes@1.0.0/tomorrow-night-eighties.css"/>
@@ -103,8 +103,12 @@ function App({ children }) {
               background-color: var(--bg-0);
               color: var(--fg-1);
               justify-content: space-between;
-              max-width: 82.5ch;
               margin: auto;
+            }
+
+            footer {
+              padding: .5em 0;
+              border-top: solid 1px var(--bg-1)
             }
 
             nav {
@@ -215,12 +219,7 @@ function App({ children }) {
 
             h3 {
               color: var(--accent-4);
-              font-size: larger;
-            }
-
-            strong, b {
-              font-weight: normal;
-              color: var(--red);
+              font-size: x-large;
             }
 
             p {
@@ -269,7 +268,7 @@ function App({ children }) {
 
             th {
                 font-weight: bold;
-                background-color: var(--bg-1);
+                background-color: var(--accent-1);
             }
 
             tr {
@@ -278,13 +277,13 @@ function App({ children }) {
 
             tr:nth-of-type(even) {
                 background-color: var(--fg-2);
-                color: var(--bg-0);
+                color: var(--fg-1);
             }
 
             thead > tr > th {
-                background-color: var(--bg-1);
-                color: var(--fg-1);
-                font-weight: normal;
+                background-color: var(--accent-2);
+                color: var(--bg-0);
+                font-weight: bold;
                 border-bottom: var(--border);
             }
 
@@ -369,10 +368,11 @@ function App({ children }) {
               background-color: var(--bg-1) !important;
               margin: 10px 0;
               border-radius: 3px;
+              overflow-x: scroll;
             }
             kbd {
-              background-color: var(--foreground);
-              color: var(--background);
+              background-color: var(--fg-1);
+              color: var(--bg-0);
             }
             tr:nth-of-type(2n) {
               background-color: var(--bg-1);
@@ -410,6 +410,7 @@ function App({ children }) {
           <div class="content">
             {children}
           </div>
+          <Footer />
         </main>
         <script>hljs.highlightAll();</script>
       </body>
@@ -418,6 +419,69 @@ function App({ children }) {
 }
 
 const posts = [
+  {
+    title: "HighlightJS + Outras atualizações",
+    date: "13/05/2025",
+    content: `Ontem eu tirei um pouco do meu tempo para procurar um |syntax-highlighter|
+    para o site, e achei o [highlightjs](https://highlightjs.org/). Eu tenho a impressão
+    de que já usei ele no passado, mas é difícil dizer ao certo.
+
+    Enfim.
+
+    Agora os blocos de código do site tem *cores*!
+    <pre><code>console.log("AEEEEEEEE, KASINÃOOO!!!")</code></pre>
+    <center>[ASSISTA ESSE VÍDEO.](https://www.youtube.com/watch?v=LCDaw0QmQQc)</center>
+
+    Isso facilita bastante se levar em conta que um dos assuntos que eu mais gosto de comentar
+    sobre são assuntos que necessitam de blocos de código.
+
+    Outra coisa também é que o HighlightJS detecta _automagicamente_ qual a linguagem que
+    está no bloco de código, ou tenta pelo menos achar a mais próxima. Por exemplo, ele
+    não tem um highlighting para a [Hare](https://harelang.org), então o highlighting vai
+    derivar do highlighting para a |Zephir|, o |C++| e a |Rust|. Olha aqui:
+
+    <pre>C++, não sei dizer o porquê<code>
+    use fmt;
+
+    export fn main() void = {
+      fmt::println("Olá, mundo!")!;
+    };
+    </code>Zephir, por conta do for-loop que se comporta como while-loop<code>
+    use fmt;
+
+    export fn main() void = {
+      let saudacoes = [
+        "Salve",
+        "Dale",
+        "Opa"
+      ];
+
+      for (let saudacao .. saudacoes) {
+        fmt::printfln("{}, mundo", saudacao)!;
+      };
+    };
+    </code>Rust, bastando colocar um type-casting:<code>
+    use fmt;
+
+    export fn main() void = {
+      let saudacoes = [
+        "Salve",
+        "Dale",
+        "Opa"
+      ];
+
+      for (let saudacao .. saudacoes) {
+        fmt::printfln("{}, mundo", saudacao: str)!;
+      };
+    };
+    </code></pre>
+    Inclusive, fica aqui a minha recomendação, teste a Hare.
+
+    # Além disso...
+    Eu também "implementei" uma footer que diz quando foi feita a última modificação do site.
+    Não é lá *tão* útil assim, mas já dá uma ajuda pra quem tem dúvidas se o site tá morto
+    ou não. Mesmo que eu duvide que alguém conheça esse site.`
+  },
   {
     title: "Sintaxe no estilo Markdown!",
     date: "11/05/2025",
@@ -511,6 +575,22 @@ export fn main() void = {
   fmt::println("Olá, mundo!")!;
 };</code></pre>
 
+    <table>
+      <thead>
+        <tr>
+          <th>teste</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>teste</td>
+        </tr>
+        <tr>
+          <td>teste</td>
+        </tr>
+      </tbody>
+    </table>
+
     # teste
     Aqui vai um link para o [google](https://google.com).
     ![](https://www.pngrepo.com/png/378789/512/deno.png)
@@ -562,6 +642,7 @@ function Blog() {
       </hgroup>
     {posts.map((post) => (
       <div class="post">
+      <hr />
       <article>
           <time>{post.date}</time>
           <h1>{post.title}</h1>
@@ -656,6 +737,25 @@ function NavBar() {
       </nav>
     </header>
   );
+}
+
+function Footer() {
+  const hoje = new Date()
+  const dia = String(hoje.getDate()).padStart(2, '0')
+  const mês = String(hoje.getMonth() + 1).padStart(2, '0')
+  const ano = hoje.getFullYear()
+  const hora = hoje.getHours()
+  const minuto = hoje.getMinutes()
+  const segundo = hoje.getSeconds()
+  const last_update = dia + '/' + mês + '/' + ano + ' - ' + hora + ":" + minuto + ":" + segundo
+
+  return (
+    <footer>
+      <center>
+        <p>Última atualização: {last_update}</p>
+      </center>
+    </footer>
+  )
 }
 
 function Home() {
