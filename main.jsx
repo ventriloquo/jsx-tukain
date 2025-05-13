@@ -190,7 +190,7 @@ function App({ children }) {
             hr {
               border: none;
               border-bottom: var(--border);
-              margin: 1em 0;
+              margin: 1em 16em;
             }
 
             time {
