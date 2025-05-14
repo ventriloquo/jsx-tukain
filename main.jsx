@@ -30,11 +30,11 @@ function App({ children }) {
         <style>
           {`
             :root {
-              --bg-0: #1f1f28;
-              --bg-1: #2a2a37;
-              --bg-2: #363646;
-              --fg-1: #dcd7ba;
-              --fg-2: #717c7c;
+              --bg-0:     #1f1f28;
+              --bg-1:     #2a2a37;
+              --bg-2:     #363646;
+              --fg-1:     #dcd7ba;
+              --fg-2:     #717c7c;
               --accent-1: #957fb8;
               --accent-2: #9cabca;
               --accent-3: #98bb6c;
@@ -142,7 +142,6 @@ const posts = [
     que ele melhor se encaixasse no meu padrão de design, e percebi uma coisa...
 
     # Esse site não tem Javascript no lado do cliente!
-    
     Cara, isso me pegou muito de surpresa, sério. Tipo, esse site é
     literalemente 1 arquivo |JSX|, e é hosteado por um
     Runtime Javascript, a última coisa que eu esperava seria que o resultado
