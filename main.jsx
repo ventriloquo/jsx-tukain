@@ -6,6 +6,7 @@
 import { serve } from "https://deno.land/std@0.133.0/http/server.ts";
 import { router } from "https://crux.land/router@0.0.11";
 import { h, ssr } from "https://crux.land/nanossr@0.0.4";
+import slugify from "npm:react-slugify@4.0.1";
 
 const render = (component) => ssr(() => <App>{component}</App>);
 
@@ -76,6 +77,15 @@ function App({ children }) {
               border: solid 2px var(--pico-primary);
               transition: all 50ms;
             }
+            article {
+              display: none;
+            }
+            article:has(h1:target) {
+              display: block;
+            }
+            article h1 {
+              scroll-margin-top: 2em;
+            }
             article ul {
               margin: .5em 1em;
             }
@@ -122,6 +132,37 @@ function App({ children }) {
 }
 
 const posts = [
+  {
+    title: "PicoCSS e as facilidades do React",
+    date: "14/05/2025",
+    content: `Como eu [comentei no meu site principal](https://ventriloquo.github.io/articles/problemas-tecnicos/),
+    no momento eu estou fazendo um teste com o meu domínio, e por razão disso, atualmente o site principal,
+    é este aqui. Um site que o objetivo inicial fora somente de ser uma caixinha de areia para mim.
+
+    Bom, agora ele já tem uma estrutura mais robusta por debaixo dos panos, e pode suprir algumas das minhas
+    necessidades. Não chega nem de longe a ser algo semelhante ao meu site principal para valer, já que ele é
+    um site construído na base de um SSG (o [Lume](https://lume.land)) e esse site aqui é feito usando apenas 1
+    arquivo |JSX|. O que, parando para pensar, mostra o quão versátil esse carinha é.
+
+    O CSS desse site aqui é vindo de um framework chamado [PicoCSS](https://picocss.com), um framework simples
+    de usar, que é bem leve e é também fácil de modificar. Tanto que com poucas alterações ele já está com uma
+    aparência que me satisfaz.
+
+    Eu também, por estar usando React, posso tirar proveito do ecosistema que circula esse carinha, da mesma forma
+    que eu instalo plugins no Lume, eu posso importar bibliotecas/funções aqui. Atualmente, a única função que eu
+    importei, que não é necessária para o funcionamento pleno do site, é uma que me permite fazer um "_slugify_" em
+    qualquer string que eu passar como parâmetro. Exemplo, se eu digitar:
+    <pre><code>slugify("AEEE KASINÃOOO!")</code></pre>
+    O resultado final vai ser:
+    <pre><code>aeee-kasinaooo</code></pre>
+    Esse processo garante que as urls do site sejam compatíveis com o máximo de navegadores possível, e também facilita
+    na hora de criar ID's para uso em outros componentes do site. Eu por exemplo, uso isso para gerar uma planilha
+    contendo a lista de posts desse site.
+
+    A melhor parte disso tudo é que eu uso essencialmente JavaScript para escrever um site que, no final do dia, nem
+    sequer tem Javascript presente depois de ser servido ao cliente.
+    `
+  },
   {
     title: "Sintaxe no estilo Markdown!",
     date: "11/05/2025",
@@ -272,18 +313,34 @@ function Blog() {
   }
   return (
     <div>
-      <hgroup class="intro">
+      <hgroup>
         <h1>Bem-vindo ao meu blog!</h1>
         <p>
           Aqui eu falo sobre coisas do meu cotidiano
           ou sobre assuntos que me interessam.
         </p>
       </hgroup>
+      <table>
+        <thead>
+          <tr>
+            <th>Post</th>
+            <th>Data de criação</th>
+          </tr>
+        </thead>
+        <tbody>
+        {posts.map((item) => (
+          <tr>
+            <td><a href={"#" + slugify(item.title)}>{item.title}</a></td>
+            <td>{item.date}</td>
+          </tr>
+        ))}
+        </tbody>
+      </table>
     {posts.map((post) => (
-      <div class="post">
+      <div>
       <article>
           <header>{post.date}</header>
-          <h1>{post.title}</h1>
+          <h1 id={slugify(post.title)}>{post.title}</h1>
           <p dangerouslySetInnerHTML={{__html: format(post.content)}}></p>
       </article>
       </div>
@@ -296,7 +353,7 @@ function Gallery() {
   return (
     <div>
       <div>
-        <hgroup class="intro">
+        <hgroup>
           <h1>Capas de Albuns</h1>
           <p>
             Estas são algumas das capas de álbuns da
@@ -345,7 +402,7 @@ function Gallery() {
       </div>
       <br />
       <div>
-        <hgroup class="intro">
+        <hgroup>
           <h1>Wallpapers</h1>
           <p>Alguns wallpapers que eu achei por ai</p>
         </hgroup>
