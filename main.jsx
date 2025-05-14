@@ -31,8 +31,8 @@ function App({ children }) {
           {`
             :root {
               --bg-0: #1f1f28;
-              --bg-2: #2a2a37;
-              --bg-1: #363646;
+              --bg-1: #2a2a37;
+              --bg-2: #363646;
               --fg-1: #dcd7ba;
               --fg-2: #717c7c;
               --accent-1: #957fb8;
