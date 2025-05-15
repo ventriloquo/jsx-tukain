@@ -20,14 +20,11 @@ serve(router(
   () => render(<NotFound />),
 ));
 
-console.log("Listening on http://localhost:8000");
-
 function App({ children }) {
   return (
     <html data-theme="dark">
       <head>
-        <link rel="icon" type="image/png" href="https://f4.bcbits.com/img/0038995394_41.jpg" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css"/>
         <style>
           {`
             :root {
@@ -38,14 +35,12 @@ function App({ children }) {
               --fg-2:     #717c7c;
               --accent-1: #957fb8;
               --accent-2: #9cabca;
-              --accent-3: #98bb6c;
 
               --pico-background-color: var(--bg-0);
               --pico-color: var(--fg-1);
               --pico-muted-color: var(--fg-2);
               --pico-primary: var(--accent-1);
               --pico-secondary: var(--accent-2);
-              --pico-primary-hover: var(--accent-3);
               --pico-code-background-color: var(--bg-1);
               --pico-card-sectioning-background-color: var(--bg-1);
               --pico-card-background-color: var(--bg-2);
@@ -59,8 +54,12 @@ function App({ children }) {
             ::-webkit-scrollbar {
               display: none;
             }
+            html {
+              scroll-behavior: smooth !important;
+            }
             main {
               max-width: 80ch !important;
+              animation: fade-in 1s both;
             }
             a {
               text-decoration: underline;
@@ -89,9 +88,11 @@ function App({ children }) {
             article ul {
               margin: .5em 1em;
             }
-            article img {
+            article img, article iframe {
               display: block;
-              margin: auto;
+              margin: 1em auto;
+            }
+            article img {
               max-width: 300px;
             }
             article header {
@@ -115,16 +116,24 @@ function App({ children }) {
               max-width: 200px;
               margin: 2px;
             }
+            @keyframes fade-in {
+              from {
+                opacity: 0;
+              }
+              to {
+                opacity: 100%;
+              }
+            }
           `}
         </style>
         <title>Tukain</title>
       </head>
       <body>
-        <main class="container">
+        <header>
           <NavBar />
-          <div>
-            {children}
-          </div>
+        </header>
+        <main>
+          {children}
         </main>
       </body>
     </html>
@@ -144,6 +153,8 @@ const posts = [
     um site construído na base de um SSG (o [Lume](https://lume.land)) e esse site aqui é feito usando apenas 1
     arquivo |JSX|. O que, parando para pensar, mostra o quão versátil esse carinha é.
 
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/NVpLbFP9xdU?si=0P_lPMMI36e-x0J5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
     O CSS desse site aqui é vindo de um framework chamado [PicoCSS](https://picocss.com), um framework simples
     de usar, que é bem leve e é também fácil de modificar. Tanto que com poucas alterações ele já está com uma
     aparência que me satisfaz.
@@ -159,8 +170,14 @@ const posts = [
     na hora de criar ID's para uso em outros componentes do site. Eu por exemplo, uso isso para gerar uma planilha
     contendo a lista de posts desse site.
 
-    A melhor parte disso tudo é que eu uso essencialmente JavaScript para escrever um site que, no final do dia, nem
-    sequer tem Javascript presente depois de ser servido ao cliente.
+    A melhor parte disso tudo é que eu essencialmente uso JavaScript para escrever um site que, no final, nem
+    sequer tem Javascript presente depois de ser servido ao cliente. O que me dá uma vibe meio... estranha?
+    Sei lá, é algo difícil de explicar.
+
+    Eu ainda acho meio paia o fato de depender de um runtime para que o site funcione, eu ainda sou novo
+    nesse lance de React e etc, mas tenho quase certeza de que eu só não achei a ferramenta (ou o termo) correta
+    para fazer o que eu quero: <ul><li>pegar esse arquivo |JSX| e transformar em um site comum para que eu coloque ele
+    no Neocities.</li></li>
     `
   },
   {
@@ -428,6 +445,7 @@ function NavBar() {
         <ul>
           <li><a style="color: var(--pico-secondary)" href="/blog">Blog</a></li>
           <li><a style="color: var(--pico-secondary)" href="/gallery">Galeria</a></li>
+          <li><a style="color: var(--pico-secondary)" href="/about">Sobre</a></li>
         </ul>
       </nav>
     </header>
@@ -453,6 +471,22 @@ function Home() {
   );
 }
 
+function About() {
+  return (
+    <div>
+      <h1>Sobre mim</h1>
+      <p>Olá, internauta! Tudo bem com você? Eu espero que sim!</p>
+      <p>Você pode me chamar de Tukain, ou Ventriloquo, se preferir.</p>
+      <p>
+        Eu sou um cara que gosta e muito do mundo open-source e Linux,
+        apesar que nos últimos tempos eu tenha perdido um pouco do vapor
+        sobre esses assuntos. Ainda assim, eles são importantes o bastante
+        para eu ainda me importar!
+      </p>
+    </div>
+  )
+}
+
 function NotFound() {
   return (
     <center>
@@ -461,3 +495,5 @@ function NotFound() {
     </center>
   );
 }
+
+export default App;
