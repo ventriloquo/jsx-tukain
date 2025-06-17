@@ -10,15 +10,18 @@ import slugify from "npm:react-slugify@4.0.1";
 
 const render = (component) => ssr(() => <App>{component}</App>);
 
-serve(router(
-    {
-	"/": () => render(<Home />),
-	"/about": () => render(<About />),
-	"/blog": () => render(<Blog />),
-	"/gallery": () => render(<Gallery />),
-    },
-    () => render(<NotFound />),
-));
+serve(
+    router(
+	{
+	    "/": () => render(<Home />),
+	    "/about": () => render(<About />),
+	    "/blog": () => render(<Blog />),
+	    "/gallery": () => render(<Gallery />),
+	},
+	() => render(<NotFound />),
+    ),
+    { port: 4000 },
+);
 
 function App({ children }) {
     return (
@@ -43,13 +46,17 @@ function App({ children }) {
 
 function Head() {
     return (
-        <head>
-            <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg'
+	<head>
+	    <link
+		rel="icon"
+		type="image/svg+xml"
+		href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg'
 	    width='32' height='32'&gt;
 	    &lt;polygon points='16,2 30,16 16,30 2,16' fill='%23FFDD33'/&gt;
-      &lt;/svg&gt;"/>
-            <Style />
-            <title>Tukain</title>
+      &lt;/svg&gt;"
+	    />
+	    <Style />
+	    <title>Tukain</title>
 	</head>
     );
 }
@@ -264,6 +271,9 @@ function Style() {
 	   margin: 1em 15%;
       }
 
+      details:hover {
+        cursor: pointer;
+      }
       summary {
 	   color: var(--heading);
       }
@@ -304,7 +314,7 @@ function Style() {
       }
 
       article {
-	   display: none;
+	   display: block;
 	   margin-bottom: 1em;
       }
 
@@ -312,8 +322,8 @@ function Style() {
 	 margin: 1em 0;
       }
 
-      article:has(h1:target) {
-	   display: block;
+      footer {
+        min-height: 1em;
       }
 
       nav {
@@ -383,7 +393,8 @@ function Style() {
       }
 
       html {
-	 scroll-padding-top: 5.5em;
+	 scroll-padding-top: 4em;
+   scroll-behavior: smooth;
       }
       nav ul {
 	 list-style: none;
@@ -440,7 +451,8 @@ const posts = [
     {
 	title: "Pérolas das LLMs",
 	date: "05/06/2025",
-	content: `Eu acabei de descobrir que o <a href="https://duck.com">DuckDuckGo</a> possui um <a href="https://duck.ai/"><i>wrapper</i></a> para LLMs, como o GPT-4o, Llama e afins.
+	content:
+	`Eu acabei de descobrir que o <a href="https://duck.com">DuckDuckGo</a> possui um <a href="https://duck.ai/"><i>wrapper</i></a> para LLMs, como o GPT-4o, Llama e afins.
 
 Então, sendo o nerd que sou, eu decidi usar o <a href="https://mistral.ai/news/mistral-small-3"><i>Mistral Small 3</i></a>, que segundo o próprio DuckDuckGo, possui um nível de "moderação" baixo e pedi para ele fazer um texto digno de uma postagem no 4Chan ou algum sub-reddit <b>bem</b> nichado.
 
@@ -467,12 +479,37 @@ E se isso não fosse suficiente para convencê-lo, deixe-me apresentar o argumen
 
 Então, se você está cansado de passar horas configurando plugins e ainda assim não conseguir a experiência de edição perfeita, é hora de dar uma chance ao Emacs. Ele é simples, versátil, livre e, acima de tudo, aprovado pelo Tsoding. O que mais você poderia querer?
 </details>
-`
+`,
+    },
+    {
+	title: "A vergonha que sinto ao usar JavaScript ",
+	date: "05/06/2025",
+	content: `Isso é uma coisa... intrigante, para dizer o mínimo. Eu percebi isso a pouco tempo na realidade. Desde o início da minha adolescência, eu tenho um interesse muito grande no mundo da programação num âmbito geral da coisa.
+
+Por conta disso, naturalmente eu vim a ter interesse em linguagens de programação. Por mais que a minha primeira experiência não tenha sido muito bem com linguagens de programação para valer, e sim com linguagens de markup (como o html) ou shell-scripts (como os arquivos bash), uma hora eu experimentei uma linguagem de programação de verdade.
+
+E a minha primeira experiência foi... com o JavaScript. Eu nunca cheguei a desenvolver um programa de verdade usando o JavaScript (em nenhuma linguagem na realidade), porém, é mais que evidente que ele teve uma influência muito grande na forma em que eu penso na hora de "programar".
+
+Na realidade, todo o processo de "Web Dev" me marcou. Essa... facilidade, é muito atraente e conveniênte.
+
+Porém, após eu me interessar cada vez mais com o mundo open-source e Linux, eu comecei a ter um ranso contra o JavaScript (como julgo ser comum com a maioria das pessoas com esse interesse), tanto que eu sentia que estava fazendo algo errado sempre que eu considerava usar/utilizava o JavaScript para alguma coisa.
+
+Isso me incomoda e muito hoje em dia, porque sinto que isso é uma coisa que me atrasa e muito no meu progresso como programador. Eu não deveria ligar para esse tipo de coisa, não nesse nível pelo menos. E, como alguém que está no ínicio dos estudos, eu deveria não só dar uma chance, como aprender a usar o JavaScript, por ele ser uma linguagem relativamente fácil de aprender, ser extremamente acessível e altamente documentada.
+
+Acredito que ainda vá levar um tempo até que eu pare de ter esse comportamento, mas espero que esse site seja um começo para esse meu desenvolvimento. Já que esse site tem como visão ser o mais simples possível, o uso de JavaScript nele se limita a garantir que os posts do meu blog sigam um padrão quando se trata da ordem e layout (espaçamento entre parágrafos, títulos, datas, esse tipo de coisa), ainda que boa parte disso também dependa do meu CSS.
+
+Tenho esperança de que eu vá conseguir superar essa questão, afinal de contas, eu nunca me imaginei usando o Emacs por exemplo, fui por muito tempo um evangelista do Vim, mas agora, o Emacs é um dos, senão, o meu editor de texto favorito (e olha que a configuração que eu mais gosto de usar é uma que é praticamente vanilla de tão enxuta).
+
+Claro que para isso, será necessária dedicação da minha parte. E estou trabalhando nesse aspecto também, para que essa minha atitude não se torne apenas mais um dos meus episódios de mudança repentina quanto ao meu gosto sobre tecnologia.
+
+<q>É simplesmente vergonhoso o quão frequente isso é.</q>
+    `
     },
     {
 	title: "Sintaxe no estilo Markdown!",
 	date: "11/05/2025",
-	content: `Graças ao advento do ChatGPT, eu pude colocar uma sintaxe no estilo
+	content:
+	`Graças ao advento do ChatGPT, eu pude colocar uma sintaxe no estilo
     [Markdown](https://www.markdownguide.org/) para esse site!
 
     A implementação é repleta de expressões regulares, e olha, agora eu entendo porquê que fizeram
@@ -480,12 +517,13 @@ Então, se você está cansado de passar horas configurando plugins e ainda assi
     inteiro que só fala sobre isso, eita coisinha complicada do cacete.
 
     Esse site, pelo menos no momento, não tem o código-fonte público, mas isso não vai
-    levar muito tempo, só o suficiente para que eu dê um jeito de pôr isso aqui no Neocities.`
+    levar muito tempo, só o suficiente para que eu dê um jeito de pôr isso aqui no Neocities.`,
     },
     {
 	title: "Espera um pouco...",
 	date: "09/05/2025",
-	content: `Eu acabei de notar uma coisa aqui enquanto estava ajustando o PicoCSS para
+	content:
+	`Eu acabei de notar uma coisa aqui enquanto estava ajustando o PicoCSS para
     que ele melhor se encaixasse no meu padrão de design, e percebi uma coisa...
 
     # Esse site não tem Javascript no lado do cliente!
@@ -504,13 +542,12 @@ Então, se você está cansado de passar horas configurando plugins e ainda assi
     autossuficiente com um SSG interno.
 
     Apesar de eu querer muito, não vou mentir...
-    `
+    `,
     },
     {
 	title: "Deno Deploy",
 	date: "08/05/2025",
-	content:
-	`Essa semana eu comecei a experimentar o
+	content: `Essa semana eu comecei a experimentar o
     [Deno](https://deno.com), e também o 
     [Deno Deploy](https://deno.com/deploy) e rapaz...
     que. coisa. *incrível!*
@@ -544,17 +581,16 @@ Então, se você está cansado de passar horas configurando plugins e ainda assi
 
     Lógico que com "inspirado" eu quero dizer que eu fiz um 'Ctrl C'
     'Ctrl V' do que eu precisava e improvisei no resto 😁
-    `
+    `,
     },
     {
 	title: "Teste",
 	date: "01/01/1974",
-	content:
-	`Isso é _só_ *um* _*teste*_.
+	content: `Isso é _só_ *um* _*teste*_.
 
-    'Ctrl' 'Alt' 'Del'
+    Lembrem-se crianças, um 'Ctrl' 'Alt' 'Del' sempre é de grande ajuda!
 
-    |code|
+    Recomendo esse comando no Minecraft: |/gamerule keepinventory true|
 
     <pre><code>use fmt;
 export fn main() void = {
@@ -576,81 +612,64 @@ export fn main() void = {
         </tr>
       </tbody>
     </table>
-
-    # teste
+    <h2>teste</h2>
     Aqui vai um link para o [google](https://google.com).
+
+    Toma aqui o [manual do Emacs](https://www.gnu.org/software/emacs/manual/pdf/emacs.pdf). Pode não ser uma boa leitura, mas definitivamente vai ser uma longa.
     ![](https://www.pngrepo.com/png/378789/512/deno.png)
     <center>Simplesmente *BASED*</center>
-    `
+    `,
     },
 ];
 
 function Blog() {
     function format(text) {
 	return text
-	    .split('\n')
+	    .split("\n")
 	    .map((linha, i, arr) => {
-		const anterior = arr[i - 1] || ''
-		const linhaTrim = linha.trim()
+		const anterior = arr[i - 1] || "";
+		const linhaTrim = linha.trim();
 
-		if (linha.trim() === '' && !anterior.trim().endsWith('</h1>')) {
-		    return '<br><br>'
+		if (linha.trim() === "" && !anterior.trim().endsWith("</h1>")) {
+		    return "<br><br>";
 		}
 
-		let markup = linha
+		let markup = linha;
 
 		markup = markup
-                    .replace(/\*(.+?)\*/g, '<b>$1</b>')
-                    .replace(/_(.+?)_/g, '<i>$1</i>')
-                    .replace(/\'(.+?)\'/g,'<kbd>$1</kbd>')
-                    .replace(/\|(.+?)\|/g,'<code>$1</code>')
-                    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
-                    .replace(/\!\[.*?]\(([^\s)]+)\)/g, '<img src="$1"/>')
+		    .replace(/\*(.+?)\*/g, "<b>$1</b>")
+		    .replace(/_(.+?)_/g, "<i>$1</i>")
+		    .replace(/\'(.+?)\'/g, "<kbd>$1</kbd>")
+		    .replace(/\|(.+?)\|/g, "<code>$1</code>")
+		    .replace(
+			/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+			'<a href="$2" target="_blank">$1</a>',
+		    )
+		    .replace(/\!\[.*?]\(([^\s)]+)\)/g, '<img src="$1"/>');
 
-		if (linhaTrim.startsWith('#')) {
-		    const conteudo = linhaTrim.replace(/^#\s*/, '')
-		    markup = `<h3>${conteudo}</h3>`
+		if (linhaTrim.startsWith("#")) {
+		    const conteudo = linhaTrim.replace(/^#\s*/, "");
+		    markup = `<h3>${conteudo}</h3>`;
 		}
 
-		return markup
+		return markup;
 	    })
-	    .join('\n')
+	    .join("\n");
     }
     return (
 	<div>
-	    <hgroup>
-		<h1>Bem-vindo ao meu blog!</h1>
-		<p>
-		    Aqui eu falo sobre coisas do meu cotidiano
-		    ou sobre assuntos que me interessam.
-		</p>
-	    </hgroup>
-	    <table>
-		<thead>
-		    <tr>
-			<th>Post</th>
-			<th>Data de criação</th>
-		    </tr>
-		</thead>
-		<tbody>
-		    {posts.map((item) => (
-			<tr>
-			    <td><a href={"#" + slugify(item.title)}>{item.title}</a></td>
-			    <td>{item.date}</td>
-			</tr>
-		    ))}
-		</tbody>
-	    </table>
 	    {posts.map((post) => (
 		<div>
-		    <article>
-			<h1 id={slugify(post.title)}>{post.title}<time>{post.date}</time></h1>
-			<div dangerouslySetInnerHTML={{__html: format(post.content)}}></div>
+		    <article id={"post_" + post.date.replaceAll("/", "-") + "_" + slugify(post.title)}>
+			<a href={"#post_" + post.date.replaceAll("/", "-") + "_" + slugify(post.title)}><h1 >{post.title}<time>{post.date}</time></h1></a>
+			<div dangerouslySetInnerHTML={{ __html: format(post.content) }}>
+			</div>
 		    </article>
+		    <hr />
 		</div>
 	    ))}
 	</div>
-    )
+    );
 }
 
 function Gallery() {
@@ -659,7 +678,13 @@ function Gallery() {
 	    <div>
 		<hgroup>
 		    <h1>Capas de Albuns</h1>
-		    <p>Estas são algumas das capas de álbuns da <a href="https://bandcamp.com/ventriloquo"> minha coleção de músicas</a> que eu acho mais bonitas</p>
+		    <p>
+			Estas são algumas das capas de álbuns da{" "}
+			<a href="https://bandcamp.com/ventriloquo">
+			    minha coleção de músicas
+			</a>{" "}
+			que eu acho mais bonitas
+		    </p>
 		</hgroup>
 	    </div>
 	    <div class="gallery albun">
@@ -721,22 +746,30 @@ function Gallery() {
 function NavBar() {
     return (
 	<nav>
-            <ul>
-		<li><a href="/">Home</a></li>
-            </ul>
-            <ul>
-		<li><a style="color: var(--pico-secondary)" href="/blog">Blog</a></li>
-		<li><a style="color: var(--pico-secondary)" href="/gallery">Galeria</a></li>
-		<li><a style="color: var(--pico-secondary)" href="/about">Sobre</a></li>
-            </ul>
+	    <ul>
+		<li>
+		    <a href="/">Início</a>
+		</li>
+	    </ul>
+	    <ul>
+		<li>
+		    <a style="color: var(--heading)" href="/blog">Blog</a>
+		</li>
+		<li>
+		    <a style="color: var(--heading)" href="/gallery">Galeria</a>
+		</li>
+		<li>
+		    <a style="color: var(--heading)" href="/about">Sobre</a>
+		</li>
+	    </ul>
 	</nav>
     );
 }
 
 function Footer() {
     return (
-	<div style="text-align: center">
-	    <p>&copy; Tukain - {new Date().getFullYear()}</p>
+	<div style="display: flex; justify-content: center; align-items: center">
+	    <p style="margin: .5em 0">&copy; <a href="https://github.com/ventriloquo">Tukain</a> - {new Date().getFullYear()}</p>
 	</div>
     );
 }
@@ -747,8 +780,14 @@ function Home() {
 	    <h1>Tukain’s Website</h1>
 	    <p>Bem-vindo ao meu website!</p>
 	    <hr />
-	    <p>Este site foi inspirado pelo site <a href="https://justfuckingusereact.com/">justfuckingusereact.com</a></p>
-	    <p>A paleta de cores utilizada é a Gruber Darker</p>
+	    <p>
+		Este site foi inspirado pelo site{" "}
+		<a href="https://justfuckingusereact.com/">justfuckingusereact.com</a>
+	    </p>
+	    <p>
+		A paleta de cores utilizada é a{" "}
+		<a href="https://github.com/rexim/gruber-darker-theme">Gruber Darker</a>
+	    </p>
 	</div>
     );
 }
@@ -757,30 +796,51 @@ function About() {
     return (
 	<div>
 	    <h1>Sobre mim</h1>
-	    <p>Olá, internauta! Tudo bem com você? Eu espero que sim!
-	    Você pode me chamar de Tukain (ou Ventriloquo, se preferir).</p>
-	    <p>Eu sou um cara que gosta e muito do mundo open-source e Linux, apesar 
-		que nos últimos tempos eu tenha perdido um pouco do vapor sobre esses 
-		assuntos. Ainda assim, eles são importantes o bastante para ainda 
-	    me importar!</p>
+	    <p>
+		Olá, internauta! Tudo bem com você? Eu espero que sim! Você pode me
+		chamar de Tukain (ou Ventriloquo, se preferir).
+	    </p>
+	    <p>
+		Eu sou um cara que gosta e muito do mundo open-source e Linux, apesar
+		que nos últimos tempos eu tenha perdido um pouco do vapor sobre esses
+		assuntos. Ainda assim, eles são importantes o bastante para ainda me
+		importar!
+	    </p>
 	    <hr />
-	    <p>Atualmente estou estudando programação, com um foco maior em
-	    programação com linguagens low-level como a <code>C</code> ou <code><a href="https://harelang.org">Hare</a></code>.</p>
-	    <p>Mesmo assim, eu também estudo (de forma esporática) linguagens como o 
-	    JavaScript e shell-scripts. E claro, também gosto de criar sites.</p>
-	    <p>Sou um usuário Linux a cerca de 5 anos, porém só comecei a me
-	    aprofundar nesse mundo a +/- 2 anos. Hoje em dia eu uso um setup do <a href="https://xfce.org">XFCE</a> com o tema <a href="https://github.com/grassmunk/Chicago95">Chicago95</a> no <a href="https://alpinelinux.org">Alpine Linux</a>.</p>
+	    <p>
+		Atualmente estou estudando programação, com um foco maior em programação
+		com linguagens low-level como a <code>C</code> ou{" "}
+		<code>
+		    <a href="https://harelang.org">Hare</a>
+		</code>.
+	    </p>
+	    <p>
+		Mesmo assim, eu também estudo (de forma esporática) linguagens como o
+		JavaScript e shell-scripts. E claro, também gosto de criar sites.
+	    </p>
+	    <p>
+		Sou um usuário Linux a cerca de 5 anos, porém só comecei a me aprofundar
+		nesse mundo a +/- 2 anos. Hoje em dia eu uso um setup do{" "}
+		<a href="https://xfce.org">XFCE</a> com o tema{" "}
+		<a href="https://github.com/grassmunk/Chicago95">Chicago95</a> no{" "}
+		<a href="https://alpinelinux.org">Alpine Linux</a>.
+	    </p>
 	    <hr />
-	    <p>Além desses interesses em tecnologia, eu também gosto de animes e
-	    músicas no estilo Lo-Fi e <a href="https://businesscasual87.bandcamp.com/album/sails">Future Funk</a>.</p>
+	    <p>
+		Além desses interesses em tecnologia, eu também gosto de animes e
+		músicas no estilo Lo-Fi e{" "}
+		<a href="https://businesscasual87.bandcamp.com/album/sails">
+		    Future Funk
+		</a>.
+	    </p>
 	</div>
-    )
+    );
 }
 
 function NotFound() {
     return (
 	<center>
-	    <h1>404</h1>
+	    <h2>404</h2>
 	    <p>Página não encontrada!</p>
 	</center>
     );
